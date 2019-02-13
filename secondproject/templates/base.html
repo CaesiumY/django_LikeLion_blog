@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>My LIKE LION BLOG</title>
+  <!-- css 추가 -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+    crossorigin="anonymous" />
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+</head>
+
+<body id="page-top">
+  <!-- 네비게이션 바 추가 -->
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top justify-content-center" style="background-color: #222">
+    <h3>
+      <a class="navbar-brand jalnan" href="{%url 'blog'%}" style="color:#f6921e; font-size: 1em; padding-top: 15px">LIKE
+        LION</a>
+    </h3>
+    <a class="navbar-brand page-scroll jalnan" href="#page-top" style="color:#fed136;">@ JBNU</a>
+    <!-- 모바일용 확장 버튼 -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- 네비게이션 메뉴 목록 -->
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav ml-auto text-uppercase jalnan">
+        <a class="nav-item nav-link" href="{%url 'home'%}" id="home">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link" href="{%url 'blog'%}" id="blog">Blog</a>
+
+        {% if user.is_authenticated %}
+        <a class="nav-item nav-link" href="{%url 'newblog'%}" id="new">글쓰기</a>
+        {%endif%}
+        <a class="nav-item nav-link" href="{%url 'portfolio'%}" id="portfolio">포트폴리오</a>
+        {% if user.is_authenticated %}
+        <a class="nav-item nav-link" href="{%static '수료증 - 전북대 - 윤창식.pdf'%}">수료증</a>
+        <a class="nav-item nav-link" href="javascript:{document.getElementById('logout').submit()}">로그아웃</a>
+        <form id="logout" method="POST" action="{%url 'logout'%}">
+          {%csrf_token%} <input type="hidden">
+        </form>
+        {%else%}
+        <a class="nav-item nav-link" href="{%url 'login'%}" id="login">로그인</a>
+        {%endif%}
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="content container">
+      <div class="row">
+        <div class="col-md">{%block content%} {%endblock%}</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- footer 추가 -->
+  <footer class="container text-right">
+    <hr />
+    <div id="footer">
+      <a target="_blank" href="https://github.com/CaesiumY/python-django_with_Likelion/tree/master/secondproject">
+        <small class="d-block mb-3 text-muted">made by CaesiumY © 2019</small>
+      </a>
+    </div>
+  </footer>
+</body>
+
+</html>

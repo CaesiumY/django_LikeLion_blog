@@ -1,0 +1,37 @@
+{%extends 'base.html'%}
+
+{%block content%}
+<br><br>
+<div class="jumbotron">
+    <h1>{{blog.title}}</h1>
+    <p>{{blog.pub_date | date:'Y-m-d H:i'}}</p>
+    <p>{{blog.body | linebreaks}}</p>
+    <br>
+    <hr>
+    <div class="row justify-content-between">
+        <div class="col-auto">
+            <a href="{%url 'blog'%}">돌아가기</a>
+        </div>
+        <div class="col-auto">
+            <a href="{% url 'destroy' blog.id %}" role="button" class="btn btn-outline-danger">삭제</a>
+        </div>
+    </div>
+</div>
+<div class='blogs'>
+    <p><a class="{% if blog.id|add:'-1' == 0 %} disable {% endif %}" href="{%url 'detail' blog.id|add:'-1'%}">이전 글</a></p>
+    <p><a class="{% if blog.id|add:'1' == 0 %} disable {% endif %}" href="{%url 'detail' blog.id|add:'1'%}">다음 글</a></p>
+</div>
+
+<script>
+    (function () {
+        var element = document.getElementById("blog");
+        element.classList.add("active");
+    })();
+</script>
+<style>
+    .disable {
+        pointer-events: none;
+    }
+</style>
+
+{%endblock%}
